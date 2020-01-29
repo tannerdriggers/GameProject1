@@ -57,8 +57,8 @@ namespace MonoGameWindowsStarter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
             random = new Random();
 
@@ -101,7 +101,7 @@ namespace MonoGameWindowsStarter
         private void AddEnemy(object source, ElapsedEventArgs e)
         {
             // chooses when to speed up the enemies
-            if (score % 2 == 0 && enemySpeed < 200)
+            if (score % 5 == 0 && enemySpeed < 200)
             {
                 enemySpeed++;
 
