@@ -16,7 +16,7 @@ namespace MonoGameWindowsStarter
         {
             private bool alive = true;
             private Rectangle position = new Rectangle(2000, 0, 150, 150);
-            private int speed;
+            private readonly int speed;
 
             public Enemy(int speed, int YPosition)
             {
@@ -26,10 +26,10 @@ namespace MonoGameWindowsStarter
 
             public bool Touches(Rectangle player)
             {
-                return !(position.X > player.X + player.Width
+                return !(position.X > player.X + player.Width - 50
                     || position.X + position.Width < player.X
-                    || position.Y > player.Y + player.Height
-                    || position.Y + position.Height < player.Y);
+                    || position.Y > player.Y + player.Height - 25
+                    || position.Y + position.Height < player.Y + 25);
             }
 
             public int Speed { get => speed; }
@@ -120,7 +120,7 @@ namespace MonoGameWindowsStarter
                     timer.Start();
                 }
             }
-            enemies.Add(new Enemy(enemySpeed, random.Next(-20, 980)));
+            enemies.Add(new Enemy(enemySpeed, random.Next(-20, GraphicsDevice.Viewport.Height - 75)));
         }
 
         private void EndGame()
@@ -147,7 +147,7 @@ namespace MonoGameWindowsStarter
                 {
                     enemy.Position = new Rectangle(enemy.Position.X - enemy.Speed, enemy.Position.Y, enemy.Position.Width, enemy.Position.Height);
 
-                    if (enemy.Position.X < -(enemySprite.Width - 20))
+                    if (enemy.Position.X + enemy.Position.Width < playerPosition.X)
                     {
                         enemy.Alive = false;
                         score += 1;
