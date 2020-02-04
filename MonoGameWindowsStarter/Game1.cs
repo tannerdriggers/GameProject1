@@ -24,6 +24,14 @@ namespace MonoGameWindowsStarter
                 position.Y = YPosition;
             }
 
+            public bool Touches(Rectangle player)
+            {
+                return !(position.X > player.X + player.Width
+                    || position.X + position.Width < player.X
+                    || position.Y > player.Y + player.Height
+                    || position.Y + position.Height < player.Y);
+            }
+
             public int Speed { get => speed; }
             public bool Alive { get => alive; set => alive = value; }
             public Rectangle Position { get => position; set => position = value; }
@@ -139,12 +147,12 @@ namespace MonoGameWindowsStarter
                 {
                     enemy.Position = new Rectangle(enemy.Position.X - enemy.Speed, enemy.Position.Y, enemy.Position.Width, enemy.Position.Height);
 
-                    if (enemy.Position.X < -enemySprite.Width)
+                    if (enemy.Position.X < -(enemySprite.Width - 20))
                     {
                         enemy.Alive = false;
                         score += 1;
                     }
-                    else if (playerPosition.Intersects(enemy.Position))
+                    else if (enemy.Touches(playerPosition))
                     {
                         EndGame();
                     }
